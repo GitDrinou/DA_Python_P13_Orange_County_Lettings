@@ -1,6 +1,6 @@
 """
 Integration tests for the views of the lettings application.
-This module validates the HTTP Responses, templates and rendered content for
+This module validates the HTTP Responses and rendered content for
 the index and detail views.
 """
 

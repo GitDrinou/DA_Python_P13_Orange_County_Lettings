@@ -8,6 +8,7 @@ source =
 omit =
     */migrations/*
     */tests/*
+    */__init__.py
     */admin.py
     */apps.py
     */asgi.py
