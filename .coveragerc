@@ -1,0 +1,19 @@
+[run]
+source =
+    oc_lettings_site
+    lettings
+    profiles
+
+[report]
+omit =
+    */migrations/*
+    */tests/*
+    */admin.py
+    */apps.py
+    */asgi.py
+    */wsgi.py
+    manage.py
+
+exclude_lines =
+    pragma: no cover
+    if __name__ == .__main__.:

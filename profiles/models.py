@@ -29,6 +29,5 @@ class Profile(models.Model):
 
         Returns:
             str: the username of the related user.
-        :return:
         """
         return self.user.username

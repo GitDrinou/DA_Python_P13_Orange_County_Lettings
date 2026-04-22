@@ -10,6 +10,7 @@ def index(request):
     Function that renders the profiles index page.
     This view retrieves all user profiles and provides access to
     the different sections of the application, such as home and lettings
+
     Parameters:
          request(HttpRequest): The incoming HTTP request.
     Returns:
@@ -30,7 +31,9 @@ def profile_detail(request, username):
     """
     Function that renders the detail page for a specific profile.
     This view retrieves a profile associated with the given username and
-    displays its information. If not matching profile is found, a 404 error is raised.
+    displays its information. If not matching profile is found, a 404 error
+    is raised.
+
     Parameters:
         request(HttpRequest): The incoming HTTP request.
         username(str): The username associated with the profile retrieve.
