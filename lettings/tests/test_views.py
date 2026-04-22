@@ -85,7 +85,7 @@ def test_lettings_detail_returns_200(client):
     """
     letting = create_letting(title="Charming living space", number=10,
                              street="Downtown Street")
-    response = client.get(reverse("lettings:letting",
+    response = client.get(reverse("lettings:letting_detail",
                                   args=[letting.id]))
     assert response.status_code == 200
 
@@ -103,5 +103,5 @@ def test_letting_detail_returns_404_for_unknown_id(client):
     Raises:
         AssertionError: If the response status code is not 404.
     """
-    response = client.get(reverse("lettings:letting", args=[999]))
+    response = client.get(reverse("lettings:letting_detail", args=[999]))
     assert response.status_code == 404

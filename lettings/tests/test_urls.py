@@ -29,7 +29,8 @@ def test_lettings_index_url_resolve():
 def test_lettings_detail_url_resolve():
     """
     verify that the lettings detail URL resolves correctly.
-    This test ensures that the 'lettings:letting' named route generates the
+    This test ensures that the 'lettings:letting_detail' named route
+    generates the
     expected path and view function.
 
     Parameters:
@@ -39,6 +40,6 @@ def test_lettings_detail_url_resolve():
     Raises:
         AssertionError: It the generated URL or view is incorrect.
     """
-    url = reverse("lettings:letting", args=["1"])
+    url = reverse("lettings:letting_detail", args=["1"])
     assert url == "/lettings/1/"
     assert resolve(url).func == letting_detail

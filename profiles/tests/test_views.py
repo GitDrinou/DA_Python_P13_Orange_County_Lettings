@@ -65,7 +65,7 @@ def test_profiles_detail_returns_200(client):
         AssertionError: If the response status code is not 200.
     """
     create_profile(username="johnny", favorite_city="Firenze")
-    response = client.get(reverse("profiles:profile",
+    response = client.get(reverse("profiles:profile_detail",
                                   args=["johnny"]))
     assert response.status_code == 200
 
@@ -83,5 +83,5 @@ def test_profile_detail_returns_404_for_unknown_id(client):
     Raises:
         AssertionError: If the response status code is not 404.
     """
-    response = client.get(reverse("profiles:profile", args=["bob"]))
+    response = client.get(reverse("profiles:profile_detail", args=["bob"]))
     assert response.status_code == 404

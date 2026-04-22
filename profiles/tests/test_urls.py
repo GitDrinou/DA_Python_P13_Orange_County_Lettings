@@ -29,7 +29,8 @@ def test_profiles_index_url_resolve():
 def test_profiles_detail_url_resolve():
     """
     Verify that the profiles detail URL resolves correctly.
-    This test ensures that the 'profiles:profile' named route generates the
+    This test ensures that the 'profiles:profile_detail' named route
+    generates the
     expected path and view function.
 
     Parameters:
@@ -39,6 +40,6 @@ def test_profiles_detail_url_resolve():
     Raises:
         AssertionError: It the generated URL or view is incorrect.
     """
-    url = reverse("profiles:profile", args=["Bob"])
+    url = reverse("profiles:profile_detail", args=["Bob"])
     assert url == "/profiles/Bob/"
     assert resolve(url).func == profile_detail

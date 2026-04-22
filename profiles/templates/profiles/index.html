@@ -19,7 +19,7 @@
                     {% for profile in profiles_list %}
                         <li class="list-group-item">
                             <a href="
-{% url 'profiles:profile' username=profile.user.username %}"
+{% url 'profiles:profile_detail' username=profile.user.username %}"
                             >{{ profile.user.username }}</a>
                         </li>
                     {% endfor %}
