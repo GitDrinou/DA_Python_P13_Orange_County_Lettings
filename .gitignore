@@ -1,6 +1,8 @@
-**/__pycache__
-**/__init__.py
+.env
+*.log
+*.sqlite3
+__pycache__/
 *.pyc
-venv
+venv/
 .idea/
 .DS_Store
