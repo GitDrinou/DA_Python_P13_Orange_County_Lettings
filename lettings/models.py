@@ -32,8 +32,12 @@ class Address(models.Model):
         """
         Function that returns a readable string representation of the address.
 
+        Parameters:
+            self (OneToOneField): the address associated with the address
         Returns:
             str: the street number following by the street name
+        Raises:
+            None
         """
         return f'{self.number} {self.street}'
 
@@ -59,7 +63,11 @@ class Letting(models.Model):
         """
         Function that returns a readable string representation of the letting..
 
+        Parameters:
+            self (OneToOneField): the letting associated with the letting
         Returns:
             str: the title of the letting
+        Raises:
+            None
         """
         return self.title

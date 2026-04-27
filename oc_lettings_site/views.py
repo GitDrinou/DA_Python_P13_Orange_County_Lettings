@@ -18,5 +18,7 @@ def index(request):
          request(HttpRequest): The incoming HTTP request.
     Returns:
         HTTPResponse: the rendered home page response
+    Raises:
+        Http404: if the requested page does not exist
     """
     return render(request, 'index.html')

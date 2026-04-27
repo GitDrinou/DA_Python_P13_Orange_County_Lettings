@@ -16,6 +16,8 @@ def index(request):
     Returns:
         HTTPResponse: the rendered profiles index page containing the list
         of all profiles.
+    Raises:
+        Http404: if the requested profile does not exist.
     """
     profiles_list = Profile.objects.all()
     context = {'profiles_list': profiles_list}

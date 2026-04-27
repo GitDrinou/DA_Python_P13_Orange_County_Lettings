@@ -27,7 +27,11 @@ class Profile(models.Model):
         """
         Function that returns a readable string representation of the profile.
 
+        Parameters:
+            self (Profile): the profile instance
         Returns:
             str: the username of the related user.
+        Raises:
+            None
         """
         return self.user.username

@@ -16,6 +16,8 @@ def index(request):
     Returns:
         HTTPResponse: the rendered lettings index page containing the list
         of all lettings.
+    Raises:
+        Http404: If no letting exists for the given identifier.
     """
     lettings_list = Letting.objects.all()
     context = {'lettings_list': lettings_list}
