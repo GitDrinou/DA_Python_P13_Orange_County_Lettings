@@ -1,5 +1,10 @@
+import logging
 from django.shortcuts import render, get_object_or_404
+from django.http import Http404
 from .models import Letting
+
+
+logger = logging.getLogger(__name__)
 
 
 # Aenean leo magna, vestibulum et tincidunt fermentum, consectetur quis velit.
@@ -11,6 +16,7 @@ def index(request):
     Function that renders the lettings index page.
     This view retrieves all available letting records and provides access to
     the different sections of the application, such as home and profiles
+
     Parameters:
          request(HttpRequest): The incoming HTTP request.
     Returns:
@@ -19,9 +25,16 @@ def index(request):
     Raises:
         Http404: If no letting exists for the given identifier.
     """
-    lettings_list = Letting.objects.all()
-    context = {'lettings_list': lettings_list}
-    return render(request, 'lettings/index.html', context)
+    logger.info("Lettings index page requested")
+
+    try:
+        lettings_list = Letting.objects.all()
+        logger.info("Retrieved %s lettings", lettings_list.count())
+        context = {'lettings_list': lettings_list}
+        return render(request, 'lettings/index.html', context)
+    except Exception:
+        logger.exception("Unexpected error while loading lettings index page")
+        raise
 
 
 # Cras ultricies dignissim purus, vitae hendrerit ex varius non. In accumsan
@@ -41,6 +54,7 @@ def letting_detail(request, letting_id):
     This view retrieves a letting by its identifier and displays its title
     and address information. If no letting matches the provided identifier,
     a 404 error is raised.
+
     Parameters:
         request(HttpRequest): The incoming HTTP request.
         letting_id(int): The unique identifier of the letting to retrieve
@@ -49,9 +63,23 @@ def letting_detail(request, letting_id):
     Raises:
         Http404: If no letting exists for the given identifier.
     """
-    letting = get_object_or_404(Letting, id=letting_id)
-    context = {
-        'title': letting.title,
-        'address': letting.address,
-    }
-    return render(request, 'lettings/letting.html', context)
+    logger.info("Letting detail page requested for letting_id:%s", letting_id)
+
+    if not isinstance(letting_id, int) or letting_id <= 0:
+        logger.warning("Invalid letting id received: %s", letting_id)
+
+    try:
+        letting = get_object_or_404(Letting, id=letting_id)
+        logger.info("Letting found for letting_id=%s", letting_id)
+        context = {
+            'title': letting.title,
+            'address': letting.address,
+        }
+        return render(request, 'lettings/letting.html', context)
+    except Http404:
+        logger.warning("Letting not found for letting_id=%s", letting_id)
+        raise
+    except Exception:
+        logger.exception("Unexpected error loading letting detail for "
+                         "letting_id=%s", letting_id)
+        raise

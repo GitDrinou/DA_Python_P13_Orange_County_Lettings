@@ -1,4 +1,8 @@
+import logging
 from django.shortcuts import render
+
+
+logger = logging.getLogger(__name__)
 
 
 # Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque molestie
@@ -14,6 +18,7 @@ def index(request):
     Function that renders the home page of the application.
     This view displays the main landing page and provides access to the
     different sections of the application, such as lettings and profiles.
+
     Parameters:
          request(HttpRequest): The incoming HTTP request.
     Returns:
@@ -21,4 +26,5 @@ def index(request):
     Raises:
         Http404: if the requested page does not exist
     """
+    logger.info("Homepage requested")
     return render(request, 'index.html')
