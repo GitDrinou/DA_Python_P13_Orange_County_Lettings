@@ -1,4 +1,5 @@
 .env
+logs/
 *.log
 *.sqlite3
 __pycache__/

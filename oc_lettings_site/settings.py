@@ -6,10 +6,13 @@ from sentry_sdk.integrations.django import DjangoIntegration
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = Path(__file__).resolve().parent.parent
+LOG_DIR = BASE_DIR / "logs"
+LOG_DIR.mkdir(exist_ok=True)
 
 load_dotenv(BASE_DIR / ".env")
 
 SENTRY_DSN = os.getenv("SENTRY_DSN", "").strip()
+LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO").upper()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -37,6 +40,46 @@ if SENTRY_DSN:
         send_default_pii=False,
         environment="development" if DEBUG else "production",
     )
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "standard": {
+            "format": "%(asctime)s | %(levelname)s | %(name)s | %(message)s",
+        },
+        "verbose": {
+            "format": "%(asctime)s | %(levelname)s | %(name)s | %(module)s | "
+                      "%(funcName)s | %(message)s",
+        },
+    },
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+            "formatter": "standard",
+            "level": LOG_LEVEL,
+        },
+        "file": {
+            "class": "logging.handlers.RotatingFileHandler",
+            "filename": str(LOG_DIR / "application.log"),
+            "maxBytes": 1048576,
+            "backupCount": 5,
+            "formatter": "verbose",
+            "level": LOG_LEVEL,
+        },
+    },
+    "root": {
+        "handlers": ["console", "file"],
+        "level": LOG_LEVEL,
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["console", "file"],
+            "level": LOG_LEVEL,
+            "propagate": False,
+        },
+    },
+}
 
 # Application definition
 
