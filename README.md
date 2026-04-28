@@ -1,6 +1,4 @@
-## Résumé
-
-Site web d'Orange County Lettings
+# Site web d'Orange County Lettings
 
 ## Développement local
 
@@ -75,3 +73,40 @@ Utilisation de PowerShell, comme ci-dessus sauf :
 
 - Pour activer l'environnement virtuel, `.\venv\Scripts\Activate.ps1` 
 - Remplacer `which <my-command>` par `(Get-Command <my-command>).Path`
+
+## Détection, journalisation et analyse des erreurs
+Le projet intègre Sentry pour la détection, journalisation et analyse des 
+erreurs applicatives.
+Les développements futurs s'appuieront sur la journalisation standard Python 
+(`logging`) et sur Sentry pour garantir une observabilité de l'application.
+
+### Mise en place d'un nouvel environnement
+1. Créer un compte sur Sentry puis créer un nouveau projet de type Django
+2. Récupérer le DSN fourni dans les paramètres du projet
+3. Ajouter cette valeur dans le fichier `.env`à la racine du projet: 
+   `SENTRY_DSN=https://<public_key>@o0.ingest.sentry.io/<project_id>`
+4. Vérifier également dans le fichier `.env` la configuration générale: 
+   `DEBUG=False` et `LOG_LEVEL=INFO`
+5. Redémarrer l'application
+
+### Configuration actuelle
+Le projet utilise les paramètres suivants:
+- activation conditionnée: Sentry est initialisé uniquement si la valeur 
+  `SENTRY_DSN`est défini
+- environnement automatique:
+  - **développement** si `DEBUG=True`
+  - **production** si `DEBUG=False`
+- Protection des données personnelles: `send_default_pii=False`
+- Monitoring de performance: `traces_sample_rate` configurable dans 
+  `settings.py`(par défaut: `1.0`)
+
+### Désactivation
+Pour désactiver Sentry sur un environnement donné, il faut simplement 
+supprimer la valeur de la variable d'environnement `SENTRY_DSN`.
+
+### Recommandation de sécurité
+- Ne jamais versionner le fichier `.env`
+- Ne jamais publier le DSN dans un dépôt public
+- Utiliser des variables d'environnements pour chaque environnement (local, 
+  production)
+- Vérifier régulièrement les alertes et les remontées dans Sentry
