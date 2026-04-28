@@ -24,7 +24,7 @@ def index(request):
     Raises:
         Http404: if the requested profile does not exist.
     """
-    logger.info("Profile index page requested")
+    logger.info("Profiles index page requested")
 
     try:
         profiles_list = Profile.objects.all()

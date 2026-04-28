@@ -5,9 +5,12 @@ the index and detail views.
 """
 
 import pytest
+import logging
 from django.contrib.auth.models import User
 from profiles.models import Profile
 from django.urls import reverse
+from django.http import Http404
+from django.test import RequestFactory
 
 
 pytestmark = pytest.mark.django_db
@@ -85,3 +88,63 @@ def test_profile_detail_returns_404_for_unknown_id(client):
     """
     response = client.get(reverse("profiles:profile_detail", args=["bob"]))
     assert response.status_code == 404
+
+
+def test_profiles_index_logs_info_message(client, caplog):
+    """
+    Verify that the profiles index view writes an info log.
+
+    Parameter:
+        client (django.test.Client): Django test client uses for HTTP Request.
+        caplog (django.test.utils.log.LogCaptured): LogCaptured object for
+        capturing
+    Returns:
+        None
+    Raises:
+        AssertionError: If the response status code is not 200.
+    """
+    create_profile(username="johnny", favorite_city="Firenze")
+    with caplog.at_level(logging.INFO):
+        response = client.get(reverse("profiles:index"))
+    assert response.status_code == 200
+    assert "Profiles index page requested" in caplog.text
+
+
+def test_profile_detail_logs_warning_for_unknown_username(client, caplog):
+    """
+    Verify that an unknown username writes a warning log.
+
+    Parameter:
+        client (django.test.Client): Django test client uses for HTTP Request.
+        caplog (django.test.utils.log.LogCaptured): LogCaptured object for
+        capturing
+    Returns:
+        None
+    Raises:
+        AssertionError: If the response status code is not 200.
+    """
+    with caplog.at_level(logging.WARNING):
+        response = client.get(reverse("profiles:profile_detail", args=["bob"]))
+    assert response.status_code == 404
+    assert "Profile not found" in caplog.text
+
+
+def test_profile_detail_logs_warning_for_invalid_username(caplog):
+    """
+    Verify that an invalid username writes a warning log.
+
+    Parameter:
+        client (django.test.Client): Django test client uses for HTTP Request.
+        caplog (django.test.utils.log.LogCaptured): LogCaptured object for
+        capturing
+    Returns:
+        None
+    Raises:
+        AssertionError: If the response status code is not 200.
+    """
+    request = RequestFactory().get("/profiles/%20/")
+    with caplog.at_level(logging.WARNING):
+        with pytest.raises(Http404):
+            from profiles.views import profile_detail
+            profile_detail(request, " ")
+    assert "Invalid username received: " in caplog.text

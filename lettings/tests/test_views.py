@@ -5,8 +5,11 @@ the index and detail views.
 """
 
 import pytest
+import logging
 from lettings.models import Address, Letting
 from django.urls import reverse
+from django.http import Http404
+from django.test import RequestFactory
 
 
 pytestmark = pytest.mark.django_db
@@ -105,3 +108,65 @@ def test_letting_detail_returns_404_for_unknown_id(client):
     """
     response = client.get(reverse("lettings:letting_detail", args=[999]))
     assert response.status_code == 404
+
+
+def test_lettings_index_logs_info_message(client, caplog):
+    """
+    Verify that lettings index view writes an info log message.
+
+    Parameter;
+        client (django.test.Client): Django test client uses for HTTP Request.
+        caplog (django.test.utils.log.LogCaptured): LogCaptured object for
+        capturing
+    Returns:
+        None
+    Raises:
+        AssertionError: If the response status code is not 200.
+    """
+    create_letting(title="Charming living space", number=10,
+                   street="Downtown Street")
+    with caplog.at_level(logging.INFO):
+        response = client.get(reverse("lettings:index"))
+
+    assert response.status_code == 200
+    assert "Lettings index page requested" in caplog.text
+
+
+def test_letting_detail_logs_warning_for_unknown_id(client, caplog):
+    """
+    Verify that an unknown letting identifier writes a warning log.
+
+    Parameter;
+        client (django.test.Client): Django test client uses for HTTP Request.
+        caplog (django.test.utils.log.LogCaptured): LogCaptured object for
+        capturing
+    Returns:
+        None
+    Raises:
+        AssertionError: If the response status code is not 200
+    """
+    with caplog.at_level(logging.WARNING):
+        response = client.get(reverse("lettings:letting_detail", args=[999]))
+    assert response.status_code == 404
+    assert "Letting not found" in caplog.text
+
+
+def test_letting_detail_logs_warning_for_invalid_id(caplog):
+    """
+    Verify that an invalid letting identifier writes a warning log.
+
+    Parameter;
+        client (django.test.Client): Django test client uses for HTTP Request.
+        caplog (django.test.utils.log.LogCaptured): LogCaptured object for
+        capturing
+    Returns:
+        None
+    Raises:
+        AssertionError: If the response status code is not 200
+    """
+    request = RequestFactory().get("/lettings/0/")
+    with caplog.at_level(logging.WARNING):
+        with pytest.raises(Http404):
+            from lettings.views import letting_detail
+            letting_detail(request, 0)
+    assert "Invalid letting id received: 0" in caplog.text
