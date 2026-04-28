@@ -39,6 +39,7 @@ if SENTRY_DSN:
         traces_sample_rate=1.0,
         send_default_pii=False,
         environment="development" if DEBUG else "production",
+        enable_logs=True,
     )
 
 LOGGING = {
