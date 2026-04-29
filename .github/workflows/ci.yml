@@ -82,7 +82,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          platforms: linux/aùd64,linux/arm64
+          platforms: linux/amd64,linux/arm64
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/oc-lettings-site${{ github.sha }}
             ${{ secrets.DOCKERHUB_USERNAME }}/oc-lettings-site:latest
