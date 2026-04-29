@@ -16,4 +16,4 @@ RUN mkdir -p logs \
 
 EXPOSE 8000
 
-CMD ["/app/entrypoint.sh"]
+CMD ["sh", "/app/entrypoint.sh"]
