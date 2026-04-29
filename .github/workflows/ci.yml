@@ -79,6 +79,6 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/oc-lettings-sites${{ github.sha }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/oc-lettings-site${{ github.sha }}
             ${{ secrets.DOCKERHUB_USERNAME }}/oc-lettings-site:latest
             
