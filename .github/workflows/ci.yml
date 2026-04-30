@@ -31,7 +31,6 @@ jobs:
 
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
           pip install -r requirements.txt
 
       - name: Run Flake8
@@ -86,4 +85,3 @@ jobs:
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/oc-lettings-site${{ github.sha }}
             ${{ secrets.DOCKERHUB_USERNAME }}/oc-lettings-site:latest
-            

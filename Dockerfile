@@ -7,7 +7,7 @@ WORKDIR /app
 
 COPY requirements.txt .
 
-RUN pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
@@ -16,4 +16,4 @@ RUN mkdir -p logs \
 
 EXPOSE 8000
 
-CMD ["sh", "/app/entrypoint.sh"]
+CMD [""/app/entrypoint.sh"]

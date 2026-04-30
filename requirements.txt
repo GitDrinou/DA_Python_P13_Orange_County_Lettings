@@ -6,3 +6,4 @@ python-dotenv==1.0.1
 sentry-sdk[django]>=2.35.0
 six
 gunicorn
+whitenoise
