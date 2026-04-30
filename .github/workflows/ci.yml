@@ -1,13 +1,13 @@
-name: CI
+name: CI/CD Pipeline
 
 on:
   push:
     branches:
-      - master
+      - "**"
 
   pull_request:
     branches:
-      - master
+      - "**"
 
 jobs:
   lint-and-tests:
@@ -18,6 +18,7 @@ jobs:
       SECRET_KEY: ${{ secrets.SECRET_KEY }}
       DEBUG: "False"
       ALLOWED_HOSTS: ${{ secrets.ALLOWED_HOSTS }}
+      SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
 
     steps:
       - name: Checkout repository
@@ -27,13 +28,13 @@ jobs:
         uses: actions/setup-python@v6
         with:
           python-version: "3.11"
-          cache: pip
+          cache: "pip"
 
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
 
-      - name: Run Flake8
+      - name: Run Linting
         run: |
           flake8 .
 
@@ -56,11 +57,11 @@ jobs:
           --cov-fail-under=80
 
   docker:
-    name: Build and Push Docker Image
+    name: Build and push Docker image
     runs-on: ubuntu-latest
     needs: lint-and-tests
 
-    if: github.event_name == 'push'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
 
     steps:
       - name: Checkout repository
@@ -85,3 +86,60 @@ jobs:
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/oc-lettings-site${{ github.sha }}
             ${{ secrets.DOCKERHUB_USERNAME }}/oc-lettings-site:latest
+
+  deploy:
+    name: Deploy to AWS Elastic Beanstalk
+    runs-on: ubuntu-latest
+    needs: docker
+
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v5
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Generate Dockerun.aws.json
+        run: |
+          cat > Dockerrun.aws.json <<EOF
+          {
+            "AWSEBDockerrunVersion": "1",
+            "Image": {
+              "Name": "${{ secrets.DOCKERHUB_USERNAME }}/oc-lettings-site:${{
+          github.sha }}",
+              "Update': "true",
+            },
+            "Ports": [
+              {
+                "ContainerPort": 8000
+              }
+            ]
+          }
+          EOF
+
+      - name: Create deployment package
+        run: |
+          zip deploy.zip Dockerrun.aws.json
+
+      - name: Upload deployment package to S3
+        run: |
+          aws s3 cp deploy.zip s3://${{ secrets.EB_S3_BUCKET }}/deploy-${{ github.sha }}.zip
+
+      - name: Create Elastic Beanstalk application version
+        run: |
+          aws elasticbeanstalk create-application-version \
+            --application-name "${{ secrets.EB_APPLICATION_NAME }}" \
+            --version-label "${{ github.sha }}" \
+            --source-bundle S3Bucket="${{ secrets.EB_S3_BUCKET }}",S3Key="deploy-${{ github.sha }}.zip"
+
+      - name: Deploy to Elastic Beanstalk
+        run: |
+          aws elasticbeanstalk update-environment \
+            --environment-name "${{ secrets.EB_ENVIRONMENT_NAME }}" \
+            --version-label "${{ github.sha }}"
