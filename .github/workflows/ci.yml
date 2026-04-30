@@ -103,7 +103,7 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
+          aws-region: eu-west-3
 
       - name: Generate Dockerun.aws.json
         run: |
@@ -125,21 +125,33 @@ jobs:
 
       - name: Create deployment package
         run: |
-          zip deploy.zip Dockerrun.aws.json
+          zip deploy-${{ github.sha }}-${{ github.run_number }}.zip \
+          Dockerrun.aws.json
+
+      - name: Create or get Elastic Beanstalk S3 bucket in eu-west-3
+        id: eb_bucket
+        run: |
+          EB_BUCKET=$(aws elasticbeanstalk create-storage-location \
+          --region eu-west-3 --query S3Bucket --output text) \
+          echo "bucket=$EB_BUCKET" >> "$GITHUB_OUTPUT"
 
       - name: Upload deployment package to S3
         run: |
-          aws s3 cp deploy.zip s3://${{ secrets.EB_S3_BUCKET }}/deploy-${{ github.sha }}.zip
+          aws s3 cp \ 
+          deploy-${{ github.sha }}-${{ github.run_number }}.zip \
+          s3://${{ steps.eb_bucket.outputs.bucket }}/deploy-${{ github.sha }}-${{ github.run_number }}.zip
 
       - name: Create Elastic Beanstalk application version
         run: |
           aws elasticbeanstalk create-application-version \
+            --region eu-west-3 \
             --application-name "${{ secrets.EB_APPLICATION_NAME }}" \
-            --version-label "${{ github.sha }}" \
-            --source-bundle S3Bucket="${{ secrets.EB_S3_BUCKET }}",S3Key="deploy-${{ github.sha }}.zip"
+            --version-label "${{ github.sha }}-${{ github.run_number }}" \
+            --source-bundle S3Bucket="${{ steps.eb_bucket.outputs.bucket }}",S3Key="deploy-${{ github.sha }}-${{ github.run_number }}.zip"
 
       - name: Deploy to Elastic Beanstalk
         run: |
           aws elasticbeanstalk update-environment \
+            --region eu-west-3 \
             --environment-name "${{ secrets.EB_ENVIRONMENT_NAME }}" \
-            --version-label "${{ github.sha }}"
+            --version-label "${{ github.sha }}-${{ github.run_number }}"
