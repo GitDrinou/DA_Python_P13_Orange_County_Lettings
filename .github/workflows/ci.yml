@@ -111,7 +111,7 @@ jobs:
           {
             "AWSEBDockerrunVersion": "1",
             "Image": {
-              "Name": "${{ secrets.DOCKERHUB_USERNAME }}/oc-lettings-site:${{ github.sha }}",
+              "Name": "${{ secrets.DOCKERHUB_USERNAME }}/oc-lettings-site:latest",
               "Update": "true"
             },
             "Ports": [
