@@ -105,15 +105,14 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-west-3
 
-      - name: Generate Dockerun.aws.json
+      - name: Generate Dockerrun.aws.json
         run: |
           cat > Dockerrun.aws.json <<EOF
           {
             "AWSEBDockerrunVersion": "1",
             "Image": {
-              "Name": "${{ secrets.DOCKERHUB_USERNAME }}/oc-lettings-site:${{
-          github.sha }}",
-              "Update': "true",
+              "Name": "${{ secrets.DOCKERHUB_USERNAME }}/oc-lettings-site:${{ github.sha }}",
+              "Update": "true"
             },
             "Ports": [
               {
@@ -122,6 +121,8 @@ jobs:
             ]
           }
           EOF
+
+          cat Dockerrun.aws.json
 
       - name: Create deployment package
         run: |
