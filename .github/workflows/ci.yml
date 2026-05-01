@@ -128,20 +128,9 @@ jobs:
           zip deploy-${{ github.sha }}-${{ github.run_number }}.zip \
           Dockerrun.aws.json
 
-      - name: Create or get Elastic Beanstalk S3 bucket in eu-west-3
-        id: eb_bucket
-        run: |
-          ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
-          EB_BUCKET="elasticbeanstalk-eu-west-3-${ACCOUNT_ID}"
-          
-          aws elasticbeanstalk create-storage-location --region eu-west-3 || true
-          
-          echo "bucket=${EB_BUCKET}" >> "$GITHUB_OUTPUT"
-          echo "Elastic Beanstalk bucket: ${EB_BUCKET}"
-
       - name: Upload deployment package to S3
         run: |
-          aws s3 cp deploy-${{ github.sha }}-${{ github.run_number }}.zip s3://${{ steps.eb_bucket.outputs.bucket }}/deploy-${{ github.sha }}-${{ github.run_number }}.zip
+          aws s3 cp deploy-${{ github.sha }}-${{ github.run_number }}.zip s3://${{ secrets.EB_S3_BUCKET }}/deploy-${{ github.sha }}-${{ github.run_number }}.zip
 
       - name: Create Elastic Beanstalk application version
         run: |
