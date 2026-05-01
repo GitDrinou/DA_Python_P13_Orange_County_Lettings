@@ -131,9 +131,13 @@ jobs:
       - name: Create or get Elastic Beanstalk S3 bucket in eu-west-3
         id: eb_bucket
         run: |
-          EB_BUCKET=$(aws elasticbeanstalk create-storage-location \
-          --region eu-west-3 --query S3Bucket --output text) \
-          echo "bucket=$EB_BUCKET" >> "$GITHUB_OUTPUT"
+          ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+          EB_BUCKET="elasticbeanstalk-eu-west-3-${ACCOUNT_ID}"
+          
+          aws elasticbeanstalk create-storage-location --region eu-west-3 || true
+          
+          echo "bucket=${EB_BUCKET}" >> "$GITHUB_OUTPUT"
+          echo "Elastic Beanstalk bucket: ${EB_BUCKET}"
 
       - name: Upload deployment package to S3
         run: |
@@ -146,6 +150,7 @@ jobs:
             --application-name "${{ secrets.EB_APPLICATION_NAME }}" \
             --version-label "${{ github.sha }}-${{ github.run_number }}" \
             --source-bundle S3Bucket="${{ steps.eb_bucket.outputs.bucket }}",S3Key="deploy-${{ github.sha }}-${{ github.run_number }}.zip"
+
 
       - name: Deploy to Elastic Beanstalk
         run: |
