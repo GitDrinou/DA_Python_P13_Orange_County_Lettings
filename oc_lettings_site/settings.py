@@ -18,7 +18,7 @@ LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO").upper()
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ["SECRET_KEY"]
+SECRET_KEY = os.environ.get("SECRET_KEY", "dummy-secret-key-for-build")
 
 if not SECRET_KEY:
     raise ValueError("Missing SECRET_KEY in environment variables")
