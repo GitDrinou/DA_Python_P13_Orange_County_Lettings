@@ -125,22 +125,22 @@ jobs:
 
       - name: Create deployment package
         run: |
-          zip deploy-${{ github.sha }}-${{ github.run_number }}.zip \
+          zip deploy-${{ github.sha }}-${{ github.run_id }}.zip \
           Dockerrun.aws.json
 
       - name: Upload deployment package to S3
         run: |
-          aws s3 cp deploy-${{ github.sha }}-${{ github.run_number }}.zip s3://${{ secrets.EB_S3_BUCKET }}/deploy-${{ github.sha }}-${{ github.run_number }}.zip
+          aws s3 cp deploy-${{ github.sha }}-${{ github.run_id }}.zip s3://${{ secrets.EB_S3_BUCKET }}/deploy-${{ github.sha }}-${{ github.run_id }}.zip
 
       - name: Create Elastic Beanstalk application version
         run: |
           aws elasticbeanstalk create-application-version \
             --application-name "${{ secrets.EB_APPLICATION_NAME }}" \
-            --version-label "${{ github.sha }}-${{ github.run_number }}" \
-            --source-bundle S3Bucket=${{ secrets.EB_S3_BUCKET }},S3Key=deploy-${{ github.sha }}-${{ github.run_number }}.zip
+            --version-label "${{ github.sha }}-${{ github.run_id }}" \
+            --source-bundle S3Bucket=${{ secrets.EB_S3_BUCKET }},S3Key=deploy-${{ github.sha }}-${{ github.run_id }}.zip
 
       - name: Deploy to Elastic Beanstalk
         run: |
           aws elasticbeanstalk update-environment \
             --environment-name "${{ secrets.EB_ENVIRONMENT_NAME }}" \
-            --version-label "${{ github.sha }}-${{ github.run_number }}"
+            --version-label "${{ github.sha }}-${{ github.run_id }}"
