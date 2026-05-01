@@ -2,6 +2,9 @@ FROM python:3.11-slim
 
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
+ENV DEBUG=False
+ENV SECRET_KEY=dummy-secret-key-for-build
+ENV ALLOWED_HOSTS=localhost,127.0.0.1,.elasticbeanstalk.com
 
 WORKDIR /app
 
