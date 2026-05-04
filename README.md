@@ -110,3 +110,82 @@ supprimer la valeur de la variable d'environnement `SENTRY_DSN`.
 - Utiliser des variables d'environnements pour chaque environnement (local, 
   production)
 - Vérifier régulièrement les alertes et les remontées dans Sentry
+
+## Déploiement
+Le projet utilise une pipeline CI/CD basée sur GitHub Actions.
+À chaque `push` sur la branche principale (`master`):
+1. analyse du code avec Flake8
+2. exécution des tests avec pytest
+3. vérification de la couverture de test (supérieure à 80% par application)
+4. construction d'une image Docker
+5. publication de l'image sur Docker Hub avec un tag basé sur le latest hash 
+   du commit
+
+L'image Docker est ensuite utilisée pour:
+- exécution locale via Docker
+- déploiement sur AWS Elastic Beanstalk
+
+### Pré-requis
+#### Environnement local
+- Docker
+- Git
+#### Déploiement AWS
+- Compte AWS
+- Accès à la console web AWS
+
+### Déploiement local avec Docker
+- vérifier dans DockerHub que l'image Docker est bien publique
+- lancer l'application avec la commande suivante:
+    ```
+    docker run --rm -p 8000:8000 --env-file .env <DOCKERHUB_USERNAME>/oc-lettings-site:latest
+    ```
+- accès à l'application en allant sur l'url `http://localhost:8000`
+
+Si l'image locale n'est pas à jour, exécuter les commandes suivantes:
+```
+docker rmi <DOCKERHUB_USERNAME>/oc-lettings-site:latest
+docker pull <DOCKERHUB_USERNAME/oc-lettings-site:latest
+```
+
+### Déploiement sur AWS Elastic Beanstalk (interface web)
+#### Étape 1: création de l'application
+1. se connecter à la console AWS
+2. aller sur `Elastic Beanstalk`
+3. cliquer sur `Créer une application
+4. nommer l'application: `oc-lettings-site`
+
+#### Étape 2: permissions IAM (Identity Access Management)
+1. aller sur `IAM`
+2. créer une nouvelle politique avec les autorisations suivantes: 
+   - `EC2`
+   - `Elastic Beanstalk`
+   - `S3`
+   - `CloudFormation`
+
+#### Étape 3: création de l'environnement
+1. cliquer sur `Créer un environnement`
+2. choisir:
+   - `Niveau d'environnement`: `Environnement serveur web`
+   - `Plateforme`: `Docker`
+3. cliquer sur `Suivant`
+
+#### Étape 4: configuration des variables d'environnement
+1. cliquer sur l'environnement créé dans l'étape 2
+2. cliquer sur le menu `Configuration`
+3. dans la section `Mise à jour, surveillance et journalisation`, ajouter 
+   les propriétés d'environnement suivants:
+   - Source: `Text brut`, Clé: `ALLOWED_HOSTS`, Valeur: `<URLS-AUTORISES>`
+   - Source: `Text brut`, Clé: `DEBUG`, Valeur: `False`
+   - Source: `Text brut`, Clé: `SECRET_KEY`, Valeur: 
+     `<CLE-SECRETE-APPLICATION-DJANGO>`
+
+
+#### Étape 5: lancement
+1. lancer un commit vide pour lancer la pipeline CI/CD complète:
+    ```
+    git commit --allow-empty -m "Déploiement"
+    git push origin master
+    ```
+2. accéder à la console AWS > Elastic Beanstalk > Environnement
+3. cliquer sur l'environnement de l'application (`oc-lettings-site-env`)
+4. cliquer sur le lien du domaine
