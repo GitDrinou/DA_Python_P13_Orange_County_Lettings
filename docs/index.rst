@@ -4,23 +4,13 @@
    contain the root `toctree` directive.
 
 Documentation technique - OC Lettings Site
-==============================
+==========================================
 
-Add your content using ``reStructuredText`` syntax. See the
-`reStructuredText <https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html>`_
-documentation for details.
-
-
-.. toctree::
-   :maxdepth: 2
-   :caption: Sommaire
-
-    description
-    installation
-    quickstart
-    technologies
-    database
-    api
-    usage
-    deployment
-
+.. include:: description.rst
+.. include:: installation.rst
+.. include:: quickstart.rst
+.. include:: technologies.rst
+.. include:: database.rst
+.. include:: api.rst
+.. include:: usage.rst
+.. include:: deployment.rst
