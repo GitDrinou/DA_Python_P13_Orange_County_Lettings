@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-oc-lettings-site documentation
+Documentation technique - OC Lettings Site
 ==============================
 
 Add your content using ``reStructuredText`` syntax. See the
@@ -13,5 +13,14 @@ documentation for details.
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: Sommaire
+
+    description
+    installation
+    quickstart
+    technologies
+    database
+    api
+    usage
+    deployment
 
