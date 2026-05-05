@@ -7,3 +7,4 @@ sentry-sdk[django]>=2.35.0
 six
 gunicorn
 whitenoise
+sphinx
