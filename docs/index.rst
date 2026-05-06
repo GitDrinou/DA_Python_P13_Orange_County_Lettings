@@ -7,18 +7,15 @@
 Documentation technique - OC Lettings Site
 ==========================================
 
-.. include:: description.rst
+.. toctree::
+   :maxdepth: 2
+   :caption: Sommaire
 
-.. include:: installation.rst
-
-.. include:: quickstart.rst
-
-.. include:: technologies.rst
-
-.. include:: database.rst
-
-.. include:: api.rst
-
-.. include:: usage.rst
-
-.. include:: deployment.rst
+   description
+   installation
+   quickstart
+   technologies
+   database
+   api
+   usage
+   deployment
