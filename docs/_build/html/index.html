@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Documentation technique - OC Lettings Site &#8212; oc-lettings-site  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/nature.css?v=279e0f84" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Description du projet" href="description.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="description.html" title="Description du projet"
+             accesskey="N">next</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">oc-lettings-site  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Documentation technique - OC Lettings Site</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="documentation-technique-oc-lettings-site">
+<h1>Documentation technique - OC Lettings Site<a class="headerlink" href="#documentation-technique-oc-lettings-site" title="Link to this heading">¶</a></h1>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Sommaire</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="description.html">Description du projet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation du projet</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#prerequis">Prérequis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#cloner-le-projet">Cloner le projet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#creer-et-activer-un-environnement-virtuel">Créer  et activer un environnement virtuel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#installer-les-dependances">Installer les dépendances</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#configurer-les-variables-d-environnement">Configurer les variables d’environnement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#initialiser-la-base-de-donnees">Initialiser la base de données</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#lancer-le-serveur">Lancer le serveur</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Guide de démarrage rapide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#demarrage-local">Démarrage local</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#lancer-les-tests">Lancer les tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#construire-l-image-docker">Construire l’image Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#lancer-l-application-avec-docker">Lancer l’application avec Docker</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="technologies.html">Technologies utilisées</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="technologies.html#langages">Langages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="technologies.html#frameworks-et-bibliotheques">Frameworks et bibliothèques</a></li>
+<li class="toctree-l2"><a class="reference internal" href="technologies.html#documentation">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="technologies.html#ci-cd-et-deploiement">CI/CD et déploiement</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="database.html">Base de données et modèles</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="database.html#vue-d-ensemble">Vue d’ensemble</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.html#modele-address">Modèle Address</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.html#modele-letting">Modèle Letting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.html#modele-profile">Modèle Profile</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">Interface de programmation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.html#vue-d-ensemble">Vue d’ensemble</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#routes-principales">Routes principales</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Guide d’utilisation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#cas-d-utilisation-1-consulter-la-page-d-accueil">Cas d’utilisation 1: consulter la page d’accueil</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#cas-d-utilisation-2-consulter-les-locations">Cas d’utilisation 2: consulter les locations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#cas-d-utilisation-3-consulter-les-profils">Cas d’utilisation 3: consulter les profils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#cas-d-utilisation-4-administrer-les-donnees">Cas d’utilisation 4: administrer les données</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="deployment.html">Déploiement et gestion de l’application</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#vue-d-ensemble">Vue d’ensemble</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#pipeline-ci-cd">Pipeline CI/CD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#variables-github-actions">Variables GitHub Actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#deploiement-docker">Déploiement Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#deploiement-aws-elastic-beanstalk">Déploiement AWS Elastic Beanstalk</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#surveillance-avec-sentry">Surveillance avec Sentry</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="description.html"
+                          title="next chapter">Description du projet</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="description.html" title="Description du projet"
+             >next</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">oc-lettings-site  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Documentation technique - OC Lettings Site</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2026, Sandrine BRIVAL.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.0.4.
+    </div>
+  </body>
+</html>

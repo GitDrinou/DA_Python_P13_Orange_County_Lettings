@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Base de données et modèles &#8212; oc-lettings-site  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/nature.css?v=279e0f84" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Interface de programmation" href="api.html" />
+    <link rel="prev" title="Technologies utilisées" href="technologies.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="api.html" title="Interface de programmation"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="technologies.html" title="Technologies utilisées"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">oc-lettings-site  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Base de données et modèles</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="base-de-donnees-et-modeles">
+<h1>Base de données et modèles<a class="headerlink" href="#base-de-donnees-et-modeles" title="Link to this heading">¶</a></h1>
+<section id="vue-d-ensemble">
+<h2>Vue d’ensemble<a class="headerlink" href="#vue-d-ensemble" title="Link to this heading">¶</a></h2>
+<p>Le projet utilise l’ORM de Django.</p>
+<p>Les principales applications métier sont:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">lettings</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">profiles</span></code></p></li>
+</ul>
+</section>
+<section id="modele-address">
+<h2>Modèle Address<a class="headerlink" href="#modele-address" title="Link to this heading">¶</a></h2>
+<p>Le modèle <code class="docutils literal notranslate"><span class="pre">Address</span></code> représente une adresse postale associée à une location.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Champ</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>number</p></td>
+<td><p>PositiveIntegerField</p></td>
+<td><p>Numéro de rue</p></td>
+</tr>
+<tr class="row-odd"><td><p>street</p></td>
+<td><p>CharField</p></td>
+<td><p>Nom de rue</p></td>
+</tr>
+<tr class="row-even"><td><p>city</p></td>
+<td><p>CharField</p></td>
+<td><p>Ville</p></td>
+</tr>
+<tr class="row-odd"><td><p>state</p></td>
+<td><p>CharField</p></td>
+<td><p>Code d’état</p></td>
+</tr>
+<tr class="row-even"><td><p>zip_code</p></td>
+<td><p>PositiveIntegerField</p></td>
+<td><p>Code postal</p></td>
+</tr>
+<tr class="row-odd"><td><p>country_iso_code</p></td>
+<td><p>CharField</p></td>
+<td><p>Code ISO du pays</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="modele-letting">
+<h2>Modèle Letting<a class="headerlink" href="#modele-letting" title="Link to this heading">¶</a></h2>
+<p>Le modèle <code class="docutils literal notranslate"><span class="pre">Letting</span></code> représente une annonce de location.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Champ</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>title</p></td>
+<td><p>CharField</p></td>
+<td><p>Titre de l’annonce</p></td>
+</tr>
+<tr class="row-odd"><td><p>address</p></td>
+<td><p>OneToOneField</p></td>
+<td><p>Adresse associé à la location</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="modele-profile">
+<h2>Modèle Profile<a class="headerlink" href="#modele-profile" title="Link to this heading">¶</a></h2>
+<p>Le modèle <code class="docutils literal notranslate"><span class="pre">Profile</span></code> étend le modèle utilisateur natif de Django.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Champ</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>user</p></td>
+<td><p>OneToOneField</p></td>
+<td><p>Utilisateur Django associé</p></td>
+</tr>
+<tr class="row-odd"><td><p>favorite_city</p></td>
+<td><p>CharField</p></td>
+<td><p>Ville favorite</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Base de données et modèles</a><ul>
+<li><a class="reference internal" href="#vue-d-ensemble">Vue d’ensemble</a></li>
+<li><a class="reference internal" href="#modele-address">Modèle Address</a></li>
+<li><a class="reference internal" href="#modele-letting">Modèle Letting</a></li>
+<li><a class="reference internal" href="#modele-profile">Modèle Profile</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="technologies.html"
+                          title="previous chapter">Technologies utilisées</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="api.html"
+                          title="next chapter">Interface de programmation</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/database.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="api.html" title="Interface de programmation"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="technologies.html" title="Technologies utilisées"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">oc-lettings-site  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Base de données et modèles</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2026, Sandrine BRIVAL.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.0.4.
+    </div>
+  </body>
+</html>

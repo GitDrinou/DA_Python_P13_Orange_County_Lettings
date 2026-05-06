@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Installation du projet &#8212; oc-lettings-site  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/nature.css?v=279e0f84" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Guide de démarrage rapide" href="quickstart.html" />
+    <link rel="prev" title="Description du projet" href="description.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="quickstart.html" title="Guide de démarrage rapide"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="description.html" title="Description du projet"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">oc-lettings-site  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Installation du projet</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="installation-du-projet">
+<h1>Installation du projet<a class="headerlink" href="#installation-du-projet" title="Link to this heading">¶</a></h1>
+<section id="prerequis">
+<h2>Prérequis<a class="headerlink" href="#prerequis" title="Link to this heading">¶</a></h2>
+<p>Avant d’installer le projet, vérifier que les outils suivants sont disponibles :</p>
+<ul class="simple">
+<li><p>Python 3.8 ou supérieur</p></li>
+<li><p>Git</p></li>
+<li><p>pip</p></li>
+<li><p>virtualenv</p></li>
+<li><p>Docker</p></li>
+</ul>
+</section>
+<section id="cloner-le-projet">
+<h2>Cloner le projet<a class="headerlink" href="#cloner-le-projet" title="Link to this heading">¶</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/GitDrinou/DA_Python_P13_Orange_County_Lettings.git
+</pre></div>
+</div>
+</section>
+<section id="creer-et-activer-un-environnement-virtuel">
+<h2>Créer  et activer un environnement virtuel<a class="headerlink" href="#creer-et-activer-un-environnement-virtuel" title="Link to this heading">¶</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>venv
+<span class="nb">source</span><span class="w"> </span>venv/bin/activate
+</pre></div>
+</div>
+<p>Sous Windows:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>venv<span class="se">\S</span>cripts<span class="se">\a</span>ctivate
+</pre></div>
+</div>
+</section>
+<section id="installer-les-dependances">
+<h2>Installer les dépendances<a class="headerlink" href="#installer-les-dependances" title="Link to this heading">¶</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+</pre></div>
+</div>
+</section>
+<section id="configurer-les-variables-d-environnement">
+<h2>Configurer les variables d’environnement<a class="headerlink" href="#configurer-les-variables-d-environnement" title="Link to this heading">¶</a></h2>
+<p>Créer un fichier <code class="docutils literal notranslate"><span class="pre">.env</span></code> à partir du fichier d’exemple:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cp<span class="w"> </span>.env.example<span class="w"> </span>.env
+</pre></div>
+</div>
+<p>Variables principales:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">SECRET_KEY</span><span class="o">=</span>clé-secrète-django
+<span class="nv">DEBUG</span><span class="o">=</span>False
+<span class="nv">ALLOWED_HOSTS</span><span class="o">=</span>localhost,<span class="w"> </span><span class="m">127</span>.0.0.1
+<span class="nv">SENTRY_DSN</span><span class="o">=</span>&lt;dsn-sentry&gt;
+<span class="nv">LOG_LEVEL</span><span class="o">=</span>INFO
+</pre></div>
+</div>
+</section>
+<section id="initialiser-la-base-de-donnees">
+<h2>Initialiser la base de données<a class="headerlink" href="#initialiser-la-base-de-donnees" title="Link to this heading">¶</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>manage.py<span class="w"> </span>migrate
+</pre></div>
+</div>
+</section>
+<section id="lancer-le-serveur">
+<h2>Lancer le serveur<a class="headerlink" href="#lancer-le-serveur" title="Link to this heading">¶</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>manage.py<span class="w"> </span>runserver
+</pre></div>
+</div>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Installation du projet</a><ul>
+<li><a class="reference internal" href="#prerequis">Prérequis</a></li>
+<li><a class="reference internal" href="#cloner-le-projet">Cloner le projet</a></li>
+<li><a class="reference internal" href="#creer-et-activer-un-environnement-virtuel">Créer  et activer un environnement virtuel</a></li>
+<li><a class="reference internal" href="#installer-les-dependances">Installer les dépendances</a></li>
+<li><a class="reference internal" href="#configurer-les-variables-d-environnement">Configurer les variables d’environnement</a></li>
+<li><a class="reference internal" href="#initialiser-la-base-de-donnees">Initialiser la base de données</a></li>
+<li><a class="reference internal" href="#lancer-le-serveur">Lancer le serveur</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="description.html"
+                          title="previous chapter">Description du projet</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="quickstart.html"
+                          title="next chapter">Guide de démarrage rapide</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/installation.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="quickstart.html" title="Guide de démarrage rapide"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="description.html" title="Description du projet"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">oc-lettings-site  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Installation du projet</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2026, Sandrine BRIVAL.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.0.4.
+    </div>
+  </body>
+</html>

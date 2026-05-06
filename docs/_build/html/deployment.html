@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Déploiement et gestion de l’application &#8212; oc-lettings-site  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/nature.css?v=279e0f84" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Guide d’utilisation" href="usage.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="usage.html" title="Guide d’utilisation"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">oc-lettings-site  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Déploiement et gestion de l’application</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="deploiement-et-gestion-de-l-application">
+<h1>Déploiement et gestion de l’application<a class="headerlink" href="#deploiement-et-gestion-de-l-application" title="Link to this heading">¶</a></h1>
+<section id="vue-d-ensemble">
+<h2>Vue d’ensemble<a class="headerlink" href="#vue-d-ensemble" title="Link to this heading">¶</a></h2>
+<p>Le déploiement repose sur:</p>
+<ul class="simple">
+<li><p>GitHub Actions</p></li>
+<li><p>Docker</p></li>
+<li><p>Docker Hub</p></li>
+<li><p>AWS Elastic Beanstalk</p></li>
+<li><p>Sentry</p></li>
+</ul>
+</section>
+<section id="pipeline-ci-cd">
+<h2>Pipeline CI/CD<a class="headerlink" href="#pipeline-ci-cd" title="Link to this heading">¶</a></h2>
+<p>La pipeline GitHub Actions exécute:</p>
+<ol class="arabic simple">
+<li><p>récupération du code source</p></li>
+<li><p>installation des dépendances</p></li>
+<li><p>exécution du linting</p></li>
+<li><p>exécution des tests</p></li>
+<li><p>construction de l’image Docker</p></li>
+<li><p>publication sur Docker Hub</p></li>
+<li><p>déploiement sur AWS Elastic Beanstalk</p></li>
+</ol>
+</section>
+<section id="variables-github-actions">
+<h2>Variables GitHub Actions<a class="headerlink" href="#variables-github-actions" title="Link to this heading">¶</a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Secret</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>SECRET_KEY</p></td>
+<td><p>Clé secrète Django</p></td>
+</tr>
+<tr class="row-odd"><td><p>ALLOWED_HOSTS</p></td>
+<td><p>Liste de hôtes autorisés</p></td>
+</tr>
+<tr class="row-even"><td><p>SENTRY_DSN</p></td>
+<td><p>DSN Sentry</p></td>
+</tr>
+<tr class="row-odd"><td><p>DOCKERHUB_USERNAME</p></td>
+<td><p>Nom d’utilisateur Docker Hub</p></td>
+</tr>
+<tr class="row-even"><td><p>DOCKERHUB_TOKEN</p></td>
+<td><p>Token Docker Hub</p></td>
+</tr>
+<tr class="row-odd"><td><p>AWS_ACCESS_KEY_ID</p></td>
+<td><p>Identification AWS</p></td>
+</tr>
+<tr class="row-even"><td><p>AWS_SECRET_ACCESS_KEY</p></td>
+<td><p>Clé secrète AWS</p></td>
+</tr>
+<tr class="row-odd"><td><p>AWS_REGION</p></td>
+<td><p>Identifiant de la région AWS</p></td>
+</tr>
+<tr class="row-even"><td><p>EB_APPLICATION_NAME</p></td>
+<td><p>Nom de l’application Elastic Beanstalk</p></td>
+</tr>
+<tr class="row-odd"><td><p>EB_ENVIRONMENT_NAME</p></td>
+<td><p>Nom de l’environnement de l’application EB</p></td>
+</tr>
+<tr class="row-even"><td><p>EB_S3_BUCKET</p></td>
+<td><p>Identifiant du bucket S3</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="deploiement-docker">
+<h2>Déploiement Docker<a class="headerlink" href="#deploiement-docker" title="Link to this heading">¶</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>oc-lettings-site<span class="w"> </span>.
+docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">8000</span>:8000<span class="w"> </span>--env-fil<span class="w"> </span>.env<span class="w">  </span>oc-lettings-site
+</pre></div>
+</div>
+</section>
+<section id="deploiement-aws-elastic-beanstalk">
+<h2>Déploiement AWS Elastic Beanstalk<a class="headerlink" href="#deploiement-aws-elastic-beanstalk" title="Link to this heading">¶</a></h2>
+<p>Le déploiement est automatisé par GitHub Actions lors d’un push sur <code class="docutils literal notranslate"><span class="pre">master</span></code>.</p>
+</section>
+<section id="surveillance-avec-sentry">
+<h2>Surveillance avec Sentry<a class="headerlink" href="#surveillance-avec-sentry" title="Link to this heading">¶</a></h2>
+<p>Sentry permet de suivre les erreurs applicatives et les exceptions Django.</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Déploiement et gestion de l’application</a><ul>
+<li><a class="reference internal" href="#vue-d-ensemble">Vue d’ensemble</a></li>
+<li><a class="reference internal" href="#pipeline-ci-cd">Pipeline CI/CD</a></li>
+<li><a class="reference internal" href="#variables-github-actions">Variables GitHub Actions</a></li>
+<li><a class="reference internal" href="#deploiement-docker">Déploiement Docker</a></li>
+<li><a class="reference internal" href="#deploiement-aws-elastic-beanstalk">Déploiement AWS Elastic Beanstalk</a></li>
+<li><a class="reference internal" href="#surveillance-avec-sentry">Surveillance avec Sentry</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="usage.html"
+                          title="previous chapter">Guide d’utilisation</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/deployment.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="usage.html" title="Guide d’utilisation"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">oc-lettings-site  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Déploiement et gestion de l’application</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2026, Sandrine BRIVAL.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.0.4.
+    </div>
+  </body>
+</html>
