@@ -7,10 +7,17 @@ Documentation technique - OC Lettings Site
 ==========================================
 
 .. include:: description.rst
+
 .. include:: installation.rst
+
 .. include:: quickstart.rst
+
 .. include:: technologies.rst
+
 .. include:: database.rst
+
 .. include:: api.rst
+
 .. include:: usage.rst
+
 .. include:: deployment.rst
