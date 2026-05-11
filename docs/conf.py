@@ -3,21 +3,24 @@
 # For the full list of built-in configuration values, see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 
-# -- Project information -----------------------------------------------------
-# https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
+# -- Path setup -------------------------------------------------------------
 
 import os
 import sys
+import django
+from pygments.lexers.sql import language_re
 
 sys.path.insert(0, os.path.abspath(".."))
 
 os.environ["DJANGO_SETTINGS_MODULE"] = "oc_lettings_site.settings"
 
-import django
 django.setup()
 
-project = 'oc-lettings-site'
-copyright = '2026, Sandrine BRIVAL'
+# -- Project information -----------------------------------------------------
+# https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
+
+project = 'OC Lettings Site'
+copyright = '2026'
 author = 'Sandrine BRIVAL'
 
 # -- General configuration ---------------------------------------------------
@@ -26,14 +29,30 @@ author = 'Sandrine BRIVAL'
 extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.napoleon",
+    "sphinx_autodoc_typehints",
 ]
 
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
+language = "fr"
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = 'nature'
 html_static_path = ['_static']
+
+# -- Autodoc configuration ---------------------------------------------------
+
+autodoc_member_order = "bysource"
+
+autodoc_default_options = {
+    "members": True,
+    "show-inheritance": True,
+}
+
+# -- Napoleon configuration --------------------------------------------------
+
+napoleon_google_docstring = True
+napoleon_numpy_docstring = False
