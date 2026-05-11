@@ -11,6 +11,10 @@ import django
 
 sys.path.insert(0, os.path.abspath(".."))
 
+os.environ.setdefault("SECRET_KEY", "dummy-secret-key-for-docs")
+os.environ.setdefault("DEBUG", "False")
+os.environ.setdefault("ALLOWED_HOSTS", "localhost,127.0.0.1,.readthedocs.io")
+os.environ.setdefault("LOG_LEVEL", "INFO")
 os.environ["DJANGO_SETTINGS_MODULE"] = "oc_lettings_site.settings"
 
 django.setup()
@@ -28,7 +32,6 @@ author = 'Sandrine BRIVAL'
 extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.napoleon",
-    "sphinx_autodoc_typehints",
 ]
 
 templates_path = ['_templates']
@@ -45,11 +48,6 @@ html_static_path = ['_static']
 # -- Autodoc configuration ---------------------------------------------------
 
 autodoc_member_order = "bysource"
-
-autodoc_default_options = {
-    "members": True,
-    "show-inheritance": True,
-}
 
 # -- Napoleon configuration --------------------------------------------------
 
