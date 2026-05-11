@@ -6,6 +6,16 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
+import os
+import sys
+
+sys.path.insert(0, os.path.abspath(".."))
+
+os.environ["DJANGO_SETTINGS_MODULE"] = "oc_lettings_site.settings"
+
+import django
+django.setup()
+
 project = 'oc-lettings-site'
 copyright = '2026, Sandrine BRIVAL'
 author = 'Sandrine BRIVAL'
@@ -13,7 +23,10 @@ author = 'Sandrine BRIVAL'
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = []
+extensions = [
+    "sphinx.ext.autodoc",
+    "sphinx.ext.napoleon",
+]
 
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']

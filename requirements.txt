@@ -8,3 +8,5 @@ six
 gunicorn
 whitenoise
 sphinx
+sphinx-rtd-theme
+sphinx-autodoc-typehints
