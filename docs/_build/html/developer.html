@@ -1,0 +1,472 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="fr" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Documentation développeur &mdash; Documentation OC Lettings Site </title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=d1a510d7"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="_static/translations.js?v=e6b791cb"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Recherche" href="search.html" />
+    <link rel="next" title="Guide d’utilisation" href="usage.html" />
+    <link rel="prev" title="Interface de programmation" href="api.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            OC Lettings Site
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Rechercher docs" aria-label="Rechercher docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Sommaire</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="description.html">Description du projet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation du projet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Guide de démarrage rapide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technologies.html">Technologies utilisées</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database.html">Base de données et modèles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">Interface de programmation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Documentation développeur</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#application-principale">Application principale</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-oc_lettings_site.views">Vues principales</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#oc_lettings_site.views.index"><code class="docutils literal notranslate"><span class="pre">index()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#application-lettings">Application lettings</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-lettings.models">Modèles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#lettings.models.Address"><code class="docutils literal notranslate"><span class="pre">Address</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lettings.models.Letting"><code class="docutils literal notranslate"><span class="pre">Letting</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-lettings.views">Vues</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#lettings.views.index"><code class="docutils literal notranslate"><span class="pre">index()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lettings.views.letting_detail"><code class="docutils literal notranslate"><span class="pre">letting_detail()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#application-profiles">Application profiles</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Modèles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#profiles.models.Profile"><code class="docutils literal notranslate"><span class="pre">Profile</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Vues</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#profiles.views.index"><code class="docutils literal notranslate"><span class="pre">index()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#profiles.views.profile_detail"><code class="docutils literal notranslate"><span class="pre">profile_detail()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Guide d’utilisation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deployment.html">Déploiement et gestion de l’application</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">OC Lettings Site</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Documentation développeur</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/developer.rst.txt" rel="nofollow"> Afficher la source de la page</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="documentation-developpeur">
+<h1>Documentation développeur<a class="headerlink" href="#documentation-developpeur" title="Lien vers cette rubrique"></a></h1>
+<p>Cette section documente automatiquement les modules Python du projet à partir
+des docstrings présentes dans le code source.</p>
+<section id="application-principale">
+<h2>Application principale<a class="headerlink" href="#application-principale" title="Lien vers cette rubrique"></a></h2>
+<section id="module-oc_lettings_site.views">
+<span id="vues-principales"></span><h3>Vues principales<a class="headerlink" href="#module-oc_lettings_site.views" title="Lien vers cette rubrique"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="oc_lettings_site.views.index">
+<span class="sig-prename descclassname"><span class="pre">oc_lettings_site.views.</span></span><span class="sig-name descname"><span class="pre">index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#oc_lettings_site.views.index" title="Lien vers cette définition"></a></dt>
+<dd><p>Function that renders the home page of the application.
+This view displays the main landing page and provides access to the
+different sections of the application, such as lettings and profiles.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> (<em>HttpRequest</em>) – The incoming HTTP request.</p>
+</dd>
+<dt class="field-even">Renvoie<span class="colon">:</span></dt>
+<dd class="field-even"><p>the rendered home page response</p>
+</dd>
+<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-odd"><p>HTTPResponse</p>
+</dd>
+<dt class="field-even">Lève<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Http404</strong> – if the requested page does not exist</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+<section id="application-lettings">
+<h2>Application lettings<a class="headerlink" href="#application-lettings" title="Lien vers cette rubrique"></a></h2>
+<section id="module-lettings.models">
+<span id="modeles"></span><h3>Modèles<a class="headerlink" href="#module-lettings.models" title="Lien vers cette rubrique"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="lettings.models.Address">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">lettings.models.</span></span><span class="sig-name descname"><span class="pre">Address</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lettings.models.Address" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">Model</span></code></p>
+<p>Represent a postal address associated with a letting.
+This model stores the different components of a physical address,
+with street number, street name, city, state, zip code, and country
+ISO code.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lettings.models.Address.number">
+<span class="sig-name descname"><span class="pre">number</span></span><a class="headerlink" href="#lettings.models.Address.number" title="Lien vers cette définition"></a></dt>
+<dd><p>the street number</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>PositiveIntegerField</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lettings.models.Address.street">
+<span class="sig-name descname"><span class="pre">street</span></span><a class="headerlink" href="#lettings.models.Address.street" title="Lien vers cette définition"></a></dt>
+<dd><p>the street name</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CharField</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lettings.models.Address.city">
+<span class="sig-name descname"><span class="pre">city</span></span><a class="headerlink" href="#lettings.models.Address.city" title="Lien vers cette définition"></a></dt>
+<dd><p>the city name</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CharField</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lettings.models.Address.state">
+<span class="sig-name descname"><span class="pre">state</span></span><a class="headerlink" href="#lettings.models.Address.state" title="Lien vers cette définition"></a></dt>
+<dd><p>the 2 character state code</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CharField</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lettings.models.Address.zip_code">
+<span class="sig-name descname"><span class="pre">zip_code</span></span><a class="headerlink" href="#lettings.models.Address.zip_code" title="Lien vers cette définition"></a></dt>
+<dd><p>the zip or postal code</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>PositiveIntegerField</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lettings.models.Address.country_iso_code">
+<span class="sig-name descname"><span class="pre">country_iso_code</span></span><a class="headerlink" href="#lettings.models.Address.country_iso_code" title="Lien vers cette définition"></a></dt>
+<dd><p>The 3 character ISO country code</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CharField</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="lettings.models.Address.DoesNotExist">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#lettings.models.Address.DoesNotExist" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="lettings.models.Address.MultipleObjectsReturned">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#lettings.models.Address.MultipleObjectsReturned" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lettings.models.Letting">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">lettings.models.</span></span><span class="sig-name descname"><span class="pre">Letting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lettings.models.Letting" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">Model</span></code></p>
+<p>Represent a rental letting.
+This model stores the title of the letting and links it to a unique
+address.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lettings.models.Letting.title">
+<span class="sig-name descname"><span class="pre">title</span></span><a class="headerlink" href="#lettings.models.Letting.title" title="Lien vers cette définition"></a></dt>
+<dd><p>the title of the letting</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CharField</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lettings.models.Letting.address">
+<span class="sig-name descname"><span class="pre">address</span></span><a class="headerlink" href="#lettings.models.Letting.address" title="Lien vers cette définition"></a></dt>
+<dd><p>the address associated with the letting</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>OneToOneField</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="lettings.models.Letting.DoesNotExist">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#lettings.models.Letting.DoesNotExist" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="lettings.models.Letting.MultipleObjectsReturned">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#lettings.models.Letting.MultipleObjectsReturned" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-lettings.views">
+<span id="vues"></span><h3>Vues<a class="headerlink" href="#module-lettings.views" title="Lien vers cette rubrique"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="lettings.views.index">
+<span class="sig-prename descclassname"><span class="pre">lettings.views.</span></span><span class="sig-name descname"><span class="pre">index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lettings.views.index" title="Lien vers cette définition"></a></dt>
+<dd><p>Function that renders the lettings index page.
+This view retrieves all available letting records and provides access to
+the different sections of the application, such as home and profiles</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> (<em>HttpRequest</em>) – The incoming HTTP request.</p>
+</dd>
+<dt class="field-even">Renvoie<span class="colon">:</span></dt>
+<dd class="field-even"><p>the rendered lettings index page containing the list
+of all lettings.</p>
+</dd>
+<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-odd"><p>HTTPResponse</p>
+</dd>
+<dt class="field-even">Lève<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Http404</strong> – If no letting exists for the given identifier.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lettings.views.letting_detail">
+<span class="sig-prename descclassname"><span class="pre">lettings.views.</span></span><span class="sig-name descname"><span class="pre">letting_detail</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">letting_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lettings.views.letting_detail" title="Lien vers cette définition"></a></dt>
+<dd><p>Function that renders the detail page for a specific letting.
+This view retrieves a letting by its identifier and displays its title
+and address information. If no letting matches the provided identifier,
+a 404 error is raised.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<em>HttpRequest</em>) – The incoming HTTP request.</p></li>
+<li><p><strong>letting_id</strong> (<em>int</em>) – The unique identifier of the letting to retrieve</p></li>
+</ul>
+</dd>
+<dt class="field-even">Renvoie<span class="colon">:</span></dt>
+<dd class="field-even"><p>the rendered  detail page for the selected letting.</p>
+</dd>
+<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-odd"><p>HttpResponse</p>
+</dd>
+<dt class="field-even">Lève<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Http404</strong> – If no letting exists for the given identifier.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+<section id="application-profiles">
+<h2>Application profiles<a class="headerlink" href="#application-profiles" title="Lien vers cette rubrique"></a></h2>
+<section id="id1">
+<h3>Modèles<a class="headerlink" href="#id1" title="Lien vers cette rubrique"></a></h3>
+<dl class="py class" id="module-profiles.models">
+<dt class="sig sig-object py" id="profiles.models.Profile">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">profiles.models.</span></span><span class="sig-name descname"><span class="pre">Profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#profiles.models.Profile" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">Model</span></code></p>
+<p>Represent an extended user profile.
+This model extends the Django’s User model with additional profile
+information, such as the user’s favorite city.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="profiles.models.Profile.user">
+<span class="sig-name descname"><span class="pre">user</span></span><a class="headerlink" href="#profiles.models.Profile.user" title="Lien vers cette définition"></a></dt>
+<dd><p>the related Django user instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>OneToOneField</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="profiles.models.Profile.favorite_city">
+<span class="sig-name descname"><span class="pre">favorite_city</span></span><a class="headerlink" href="#profiles.models.Profile.favorite_city" title="Lien vers cette définition"></a></dt>
+<dd><p>the user’s favorite city.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CharField</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="profiles.models.Profile.DoesNotExist">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#profiles.models.Profile.DoesNotExist" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="profiles.models.Profile.MultipleObjectsReturned">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#profiles.models.Profile.MultipleObjectsReturned" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="id2">
+<h3>Vues<a class="headerlink" href="#id2" title="Lien vers cette rubrique"></a></h3>
+<dl class="py function" id="module-profiles.views">
+<dt class="sig sig-object py" id="profiles.views.index">
+<span class="sig-prename descclassname"><span class="pre">profiles.views.</span></span><span class="sig-name descname"><span class="pre">index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#profiles.views.index" title="Lien vers cette définition"></a></dt>
+<dd><p>Function that renders the profiles index page.
+This view retrieves all user profiles and provides access to
+the different sections of the application, such as home and lettings</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> (<em>HttpRequest</em>) – The incoming HTTP request.</p>
+</dd>
+<dt class="field-even">Renvoie<span class="colon">:</span></dt>
+<dd class="field-even"><p>the rendered profiles index page containing the list
+of all profiles.</p>
+</dd>
+<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-odd"><p>HTTPResponse</p>
+</dd>
+<dt class="field-even">Lève<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Http404</strong> – if the requested profile does not exist.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="profiles.views.profile_detail">
+<span class="sig-prename descclassname"><span class="pre">profiles.views.</span></span><span class="sig-name descname"><span class="pre">profile_detail</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">username</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#profiles.views.profile_detail" title="Lien vers cette définition"></a></dt>
+<dd><p>Function that renders the detail page for a specific profile.
+This view retrieves a profile associated with the given username and
+displays its information. If not matching profile is found, a 404 error
+is raised.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<em>HttpRequest</em>) – The incoming HTTP request.</p></li>
+<li><p><strong>username</strong> (<em>str</em>) – The username associated with the profile retrieve.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Renvoie<span class="colon">:</span></dt>
+<dd class="field-even"><p>the rendered detail page for the selected profile.</p>
+</dd>
+<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-odd"><p>HttpResponse</p>
+</dd>
+<dt class="field-even">Lève<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Http404</strong> – If no profile exists for the given username.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pied de page">
+        <a href="api.html" class="btn btn-neutral float-left" title="Interface de programmation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Précédent</a>
+        <a href="usage.html" class="btn btn-neutral float-right" title="Guide d’utilisation" accesskey="n" rel="next">Suivant <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Droits d'auteur 2026.</p>
+  </div>
+
+  Compilé avec <a href="https://www.sphinx-doc.org/">Sphinx</a> en utilisant un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">thème</a>
+    fourni par <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
