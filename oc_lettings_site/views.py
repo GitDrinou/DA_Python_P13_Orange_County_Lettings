@@ -33,6 +33,7 @@ def index(request):
 def trigger_error(request):
     try:
         x = 1 / 0
+        print(x)
 
     except ZeroDivisionError as e:
         logger.exception(e)
