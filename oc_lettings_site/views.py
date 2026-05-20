@@ -28,3 +28,17 @@ def index(request):
     """
     logger.info("Homepage requested")
     return render(request, 'index.html')
+
+
+def trigger_error(request):
+    try:
+        x = 1 / 0
+
+    except ZeroDivisionError as e:
+        logger.exception(e)
+
+        return render(
+            request,
+            "500.html",
+            status=500
+        )

@@ -84,7 +84,7 @@ jobs:
           push: true
           platforms: linux/amd64,linux/arm64
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/oc-lettings-site${{ github.sha }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/oc-lettings-site:${{ github.sha }}
             ${{ secrets.DOCKERHUB_USERNAME }}/oc-lettings-site:latest
 
   deploy:
@@ -111,7 +111,7 @@ jobs:
           {
             "AWSEBDockerrunVersion": "1",
             "Image": {
-              "Name": "${{ secrets.DOCKERHUB_USERNAME }}/oc-lettings-site:latest",
+              Name": "${{ secrets.DOCKERHUB_USERNAME }}/oc-lettings-site:${{ github.sha }}"
               "Update": "true"
             },
             "Ports": [
